@@ -1,4 +1,4 @@
-INSERT INTO tickets (employeeId, message, createdAt, status)
+INSERT INTO tickets (employee_id, message, created_at, status)
 VALUES (1, 'Need assistance with software installation', '2023-07-25 10:30:00', 'WAIT'),
        (2, 'Reporting a bug in the system', '2023-07-25 14:45:00', 'WAIT'),
        (3, 'Requesting vacation leave approval', '2023-07-25 12:15:00', 'PROCESSED'),

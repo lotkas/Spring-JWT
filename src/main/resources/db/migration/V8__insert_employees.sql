@@ -1,4 +1,4 @@
-INSERT INTO employees (email, firstName, lastName, positionId, age, salary, inJob)
+INSERT INTO employees (email, first_name, last_name, position_id, age, salary, in_job)
 VALUES ('mymail@gmail.com', 'Vladimir', 'Vladimiron', 1, 25, 25000, true),
        ('gosha@mail.com', 'John', 'Doe', 2, 30, 35000, true),
        ('mrbatman@mail.com', 'Anna', 'Smith', 3, 28, 30000, true),

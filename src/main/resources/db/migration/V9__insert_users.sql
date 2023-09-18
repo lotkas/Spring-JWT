@@ -1,4 +1,4 @@
-INSERT INTO users (username, password, employeeId, roleId)
+INSERT INTO users (username, password, employee_id, role_id)
 VALUES ('vladinvoker', 'midorfeed1', 1, 1),
        ('goshantrue', 'soldmessanger1200', 2, 2),
        ('superanna', 'imbatman', 3, 1),

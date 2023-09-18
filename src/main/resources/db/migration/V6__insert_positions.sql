@@ -1,4 +1,4 @@
-INSERT INTO positions (positionName)
+INSERT INTO positions (position_name)
 VALUES ('Manager'),
        ('Software Engineer'),
        ('Analyst'),
