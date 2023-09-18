@@ -50,10 +50,6 @@ public class EmployeeController {
 
     /**
      * Save a ticket using the provided ticket object and authenticated user.
-     *
-     * @param  ticket           the ticket object to be saved
-     * @param  authentication   the authentication object representing the authenticated user
-     * @return                  the saved ticket object
      */
     @PostMapping("/send")
     public Ticket saveTicket(@RequestBody Ticket ticket, Authentication authentication) {

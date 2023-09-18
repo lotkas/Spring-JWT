@@ -2,12 +2,14 @@ package com.example.SpringJWT.controllers;
 
 import com.example.SpringJWT.models.Employee;
 import com.example.SpringJWT.models.Ticket;
+import com.example.SpringJWT.services.EmployeeService;
+import com.example.SpringJWT.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/*@RestController
+@RestController
 @RequestMapping("/api/v1/admin/")
 public class AdminController {
 
@@ -40,7 +42,7 @@ public class AdminController {
     }
 
     @GetMapping("/ticket/get")
-    public Ticket getTicketAll() {
+    public List<Ticket> getTicketAll() {
         return ticketService.getTicketAll();
     }
 
@@ -49,4 +51,4 @@ public class AdminController {
 
         ticketService.deleteTicketById(id);
     }
-}*/
+}

@@ -45,9 +45,6 @@ public class UserService {
         return employeeId;
     }
 
-    /**
-     * Create a new user with the provided authentication request.
-     */
     @Transactional
     public void createNewUser(@NotNull AuthRequestDTO request) {
         if (getByLogin(request.getLogin()) != null) {
