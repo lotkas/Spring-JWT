@@ -22,39 +22,42 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
-  private static final String AUTH_PATH = "/api/v1/auth/**";
-  private final JwtTokenFilter jwtTokenFilter;
+    private static final String AUTH_PATH = "/api/v1/auth/**";
 
-  public SecurityConfiguration(@NotNull JwtTokenFilter jwtTokenFilter) {
-    this.jwtTokenFilter = jwtTokenFilter;
-  }
+    private static final String ADMIN_PATH = "/api/v1/admin/**";
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http
-        .authorizeRequests()
-        .antMatchers(AUTH_PATH).permitAll()
-        .anyRequest().authenticated()
-        .and()
-      .httpBasic().disable()
-      .csrf().disable()
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and().cors()
-      .and()
-        .exceptionHandling()
-        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-      .and()
-        .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-      .build();
-  }
+    private final JwtTokenFilter jwtTokenFilter;
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new Pbkdf2PasswordEncoder();
-  }
+    public SecurityConfiguration(@NotNull JwtTokenFilter jwtTokenFilter) {
+        this.jwtTokenFilter = jwtTokenFilter;
+    }
 
-  @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-    return authenticationConfiguration.getAuthenticationManager();
-  }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeRequests()
+                .antMatchers(AUTH_PATH).permitAll()
+                .antMatchers(ADMIN_PATH).hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().cors()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .and()
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new Pbkdf2PasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 }
