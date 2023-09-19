@@ -45,6 +45,12 @@ public class UserService {
         return employeeId;
     }
 
+    public User updateUserEmployeeId(Long userId, Long employeeId) {
+        User user = userRepository.getById(userId);
+        user.setEmployeeId(employeeId);
+        return userRepository.save(user);
+    }
+
     @Transactional
     public void createNewUser(@NotNull AuthRequestDTO request) {
         if (getByLogin(request.getLogin()) != null) {

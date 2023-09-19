@@ -2,8 +2,10 @@ package com.example.SpringJWT.controllers;
 
 import com.example.SpringJWT.models.Employee;
 import com.example.SpringJWT.models.Ticket;
+import com.example.SpringJWT.models.User;
 import com.example.SpringJWT.services.EmployeeService;
 import com.example.SpringJWT.services.TicketService;
+import com.example.SpringJWT.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,14 @@ public class AdminController {
 
     private final EmployeeService employeeService;
 
+    private final UserService userService;
+
     private final TicketService ticketService;
 
     @Autowired
-    public AdminController(EmployeeService employeeService, TicketService ticketService) {
+    public AdminController(EmployeeService employeeService, UserService userService, TicketService ticketService) {
         this.employeeService = employeeService;
+        this.userService = userService;
         this.ticketService = ticketService;
     }
 
@@ -39,10 +44,16 @@ public class AdminController {
         return employeeService.getById(id);
     }
 
-    @PutMapping("/set/{id}")
+    @PutMapping("/set/employee/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee updateEmployee) {
         logger.info("/set/{} start", id);
         return employeeService.updateEmployee(id, updateEmployee);
+    }
+
+    @PutMapping("/set/user/employeeId/{id}")
+    public User setUserEmployeeId(@PathVariable Long id, Long employeeId) {
+        logger.info("/set/user/employeeId/{} start", id);
+        return userService.updateUserEmployeeId(id, employeeId);
     }
 
     @GetMapping("/ticket/get")
