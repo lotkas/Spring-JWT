@@ -1,4 +1,3 @@
-# Spring-JWT
 # Учет сотрудников - Spring REST API
 
 Это Spring REST API для учета сотрудников. В системе есть две роли: ADMIN и USER.
