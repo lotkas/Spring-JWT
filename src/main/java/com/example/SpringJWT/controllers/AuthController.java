@@ -6,6 +6,8 @@ import com.example.SpringJWT.dto.AuthResponseDTO;
 import com.example.SpringJWT.models.User;
 import com.example.SpringJWT.services.UserService;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,8 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
+    private final static Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     private final AuthenticationManager authenticationManager;
+
     private final UserService userService;
+
     private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
@@ -38,6 +44,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> authenticate(@RequestBody AuthRequestDTO request) {
+        logger.info("/login start");
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
 
         final User user = userService.getByLogin(request.getLogin());
@@ -48,13 +55,17 @@ public class AuthController {
 
     @PostMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
+        logger.info("/logout start");
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
+        logger.info("/logout complete");
     }
 
     @PostMapping("/registration")
     public ResponseEntity<String> registration(@RequestBody AuthRequestDTO request) {
+        logger.info("/registration start");
         userService.createNewUser(request);
+
         return ResponseEntity.ok().build();
     }
 }

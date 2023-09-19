@@ -5,6 +5,8 @@ import com.example.SpringJWT.models.Ticket;
 import com.example.SpringJWT.services.EmployeeService;
 import com.example.SpringJWT.services.TicketService;
 import com.example.SpringJWT.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/employee/")
 public class EmployeeController {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     private final EmployeeService employeeService;
 
@@ -26,33 +30,27 @@ public class EmployeeController {
         this.userService = userService;
     }
 
-    /**
-     * Retrieves an Employee object based on the authenticated user's information.
-     */
     @GetMapping("/get")
     public Employee getEmployee(Authentication authentication) {
+        logger.info("/get start");
         String username = authentication.getName();
         Long employeeId = userService.findEmployeeIdByUsername(username);
 
         return employeeService.getEmployeeById(employeeId);
     }
 
-    /**
-     * Updates an employee record by the currently logged-in user.
-     */
     @PutMapping("/set")
     public Employee updateEmployeeByLoggedInUser(@RequestBody Employee updateEmployee, Authentication authentication) {
+        logger.info("/set start");
         String username = authentication.getName();
         Long employeeId = userService.findEmployeeIdByUsername(username);
 
         return employeeService.updateEmployee(employeeId, updateEmployee);
     }
 
-    /**
-     * Save a ticket using the provided ticket object and authenticated user.
-     */
     @PostMapping("/send")
     public Ticket saveTicket(@RequestBody Ticket ticket, Authentication authentication) {
+        logger.info("/send start");
         String username = authentication.getName();
         Long employeeId = userService.findEmployeeIdByUsername(username);
 
