@@ -27,7 +27,8 @@ public class Ticket {
     @Column
     private TicketStatus status;
 
-    public Ticket(Employee employeeId, String message, LocalDateTime createdAt, TicketStatus status) {
+    public Ticket(Long id, Employee employeeId, String message, LocalDateTime createdAt, TicketStatus status) {
+        this.id = id;
         this.employeeId = employeeId;
         this.message = message;
         this.createdAt = createdAt;
