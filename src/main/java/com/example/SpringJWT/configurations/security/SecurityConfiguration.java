@@ -37,7 +37,6 @@ public class SecurityConfiguration {
         return http
                 .authorizeRequests()
                 .antMatchers(AUTH_PATH).permitAll()
-                .antMatchers(ADMIN_PATH).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic().disable()

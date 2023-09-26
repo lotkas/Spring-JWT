@@ -28,11 +28,10 @@ public class TicketService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Ticket saveTicket(Ticket ticket, Long employeeId) {
+    public Ticket saveTicket(Ticket ticket, Employee employee) {
         logger.info("saveTicket() start");
-        Employee employee = employeeRepository.getById(employeeId);
 
-        ticket.setEmployeeId(employee);
+        ticket.setEmployee(employee);
         ticket.setStatus(TicketStatus.WAIT);
         ticket.setCreatedAt(LocalDateTime.now());
 

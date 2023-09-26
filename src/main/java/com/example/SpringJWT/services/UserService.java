@@ -50,12 +50,12 @@ public class UserService {
         return employeeId;
     }
 
-    public User updateUserEmployeeId(Long userId, Long employeeId) {
+    public void updateUserEmployeeId(Long userId, Long employeeId) {
         logger.info("updateUserEmployeeId() start");
         User user = userRepository.getById(userId);
         user.setEmployeeId(employeeId);
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     @Transactional

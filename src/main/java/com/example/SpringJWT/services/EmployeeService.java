@@ -21,16 +21,19 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee updateEmployee(Long id, Employee employee) {
+    public Employee updateEmployee(Long id, Employee employeeUpdate) {
         logger.info("updateEmployee() start");
-        employee.setId(id);
-        return employeeRepository.save(employee);
-    }
+        Employee employee = employeeRepository.getById(id);
 
-    public Employee getEmployeeById(Long id) {
-        logger.info("getEmployeeById() start");
-        return employeeRepository.findById(id)
-                .orElse(null);
+        employee.setFirstName(employeeUpdate.getFirstName());
+        employee.setLastName(employeeUpdate.getLastName());
+        employee.setEmail(employeeUpdate.getEmail());
+        employee.setPositionId(employeeUpdate.getPositionId());
+        employee.setAge(employeeUpdate.getAge());
+        employee.setSalary(employeeUpdate.getSalary());
+        employee.setInJob(employeeUpdate.isInJob());
+
+        return employeeRepository.save(employee);
     }
 
     public List<Employee> getAll() {
@@ -40,6 +43,7 @@ public class EmployeeService {
 
     public Employee getById(Long id) {
         logger.info("getById() start");
-        return employeeRepository.getById(id);
+        return employeeRepository.findById(id)
+                .orElse(null);
     }
 }

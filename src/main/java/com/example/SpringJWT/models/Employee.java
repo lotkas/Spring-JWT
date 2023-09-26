@@ -33,12 +33,10 @@ public class Employee {
     @Column(name = "in_job")
     private boolean inJob;
 
-    public Employee(Long id, String firstName, String lastName, String email, Position positionId, int age, BigDecimal salary, boolean inJob) {
-        this.id = id;
+    public Employee(String firstName, String lastName, String email, int age, BigDecimal salary, boolean inJob) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.positionId = positionId;
         this.age = age;
         this.salary = salary;
         this.inJob = inJob;

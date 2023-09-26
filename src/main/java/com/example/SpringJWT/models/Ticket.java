@@ -14,8 +14,8 @@ public class Ticket {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employeeId;
+    @JoinColumn(name = "employee_id", referencedColumnName = "id", nullable = false)
+    private Employee employee;
 
     @Column
     private String message;
@@ -27,9 +27,9 @@ public class Ticket {
     @Column
     private TicketStatus status;
 
-    public Ticket(Long id, Employee employeeId, String message, LocalDateTime createdAt, TicketStatus status) {
+    public Ticket(Long id, Employee employee, String message, LocalDateTime createdAt, TicketStatus status) {
         this.id = id;
-        this.employeeId = employeeId;
+        this.employee = employee;
         this.message = message;
         this.createdAt = createdAt;
         this.status = status;
@@ -46,12 +46,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public Employee getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(Employee employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employeeId) {
+        this.employee = employeeId;
     }
 
     public String getMessage() {
@@ -82,7 +82,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
-                ", employeeId=" + employeeId +
+                ", employee=" + employee +
                 ", message='" + message + '\'' +
                 ", createdAt=" + createdAt +
                 ", status=" + status +
