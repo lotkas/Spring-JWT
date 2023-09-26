@@ -1,36 +1,26 @@
-package com.example.SpringJWT.models;
+package com.example.SpringJWT.dto;
 
-import javax.persistence.*;
+import com.example.SpringJWT.models.Role;
+import com.example.SpringJWT.models.User;
 
-@Entity
-@Table(name = "users")
-public class User {
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "employee_id")
     private Long employeeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
     private Role userRole;
 
-    public User(String username, String password, Long employeeId, Role userRole) {
-        this.username = username;
-        this.password = password;
-        this.employeeId = employeeId;
-        this.userRole = userRole;
-    }
-
-    public User() {
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.employeeId = user.getEmployeeId();
+        this.userRole = user.getUserRole();
     }
 
     public Long getId() {
@@ -75,7 +65,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserDTO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

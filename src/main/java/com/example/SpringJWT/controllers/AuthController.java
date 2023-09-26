@@ -27,6 +27,12 @@ public class AuthController {
 
     private final static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
+    private static final String LOGIN = "/login";
+
+    private static final String LOGOUT = "/logout";
+
+    private static final String REGISTRATION = "/registration";
+
     private final AuthenticationManager authenticationManager;
 
     private final UserService userService;
@@ -42,7 +48,7 @@ public class AuthController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @PostMapping("/login")
+    @PostMapping(LOGIN)
     public ResponseEntity<AuthResponseDTO> authenticate(@RequestBody AuthRequestDTO request) {
         logger.info("/login start");
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
@@ -53,7 +59,7 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponseDTO(token));
     }
 
-    @PostMapping("/logout")
+    @PostMapping(LOGOUT)
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         logger.info("/logout start");
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
@@ -61,7 +67,7 @@ public class AuthController {
         logger.info("/logout complete");
     }
 
-    @PostMapping("/registration")
+    @PostMapping(REGISTRATION)
     public ResponseEntity<String> registration(@RequestBody AuthRequestDTO request) {
         logger.info("/registration start");
         userService.createNewUser(request);

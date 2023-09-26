@@ -3,7 +3,6 @@ package com.example.SpringJWT.services;
 import com.example.SpringJWT.enums.TicketStatus;
 import com.example.SpringJWT.models.Employee;
 import com.example.SpringJWT.models.Ticket;
-import com.example.SpringJWT.repositories.EmployeeRepository;
 import com.example.SpringJWT.repositories.TicketRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +19,9 @@ public class TicketService {
 
     private final TicketRepository ticketRepository;
 
-    private final EmployeeRepository employeeRepository;
-
     @Autowired
-    public TicketService(TicketRepository ticketRepository, EmployeeRepository employeeRepository) {
+    public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
-        this.employeeRepository = employeeRepository;
     }
 
     public Ticket saveTicket(Ticket ticket, Employee employee) {
