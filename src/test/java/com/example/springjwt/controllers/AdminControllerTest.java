@@ -1,23 +1,7 @@
-package com.example.SpringJWT.controllers;
-
-import com.example.SpringJWT.enums.UserRole;
-import com.example.SpringJWT.models.*;
-import com.example.SpringJWT.services.EmployeeService;
-import com.example.SpringJWT.services.TicketService;
-import com.example.SpringJWT.services.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
+package com.example.springjwt.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /*
 class AdminControllerTest {

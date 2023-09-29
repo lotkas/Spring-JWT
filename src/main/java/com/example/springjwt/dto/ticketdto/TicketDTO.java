@@ -1,4 +1,4 @@
-package com.example.springjwt.dto;
+package com.example.springjwt.dto.ticketdto;
 
 import com.example.springjwt.enums.TicketStatus;
 import com.example.springjwt.models.Ticket;

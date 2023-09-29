@@ -1,7 +1,7 @@
 package com.example.springjwt.services;
 
 import com.example.springjwt.configurations.ApiException;
-import com.example.springjwt.dto.AuthRequestDTO;
+import com.example.springjwt.dto.authdto.AuthRequestDTO;
 import com.example.springjwt.enums.UserRole;
 import com.example.springjwt.models.Role;
 import com.example.springjwt.models.User;
@@ -45,17 +45,19 @@ public class UserService {
         logger.info("findEmployeeIdByUsername() start");
         Long employeeId = userRepository.findEmployeeIdByUsername(username);
         if (employeeId == null) {
-            throw new RuntimeException("EmployeeId not found for username: " + username);
+            logger.debug("EmployeeId not found for username: {}", username);
+            throw new RuntimeException();
         }
         return employeeId;
     }
 
     public void updateUserEmployeeId(Long userId, Long employeeId) {
-        logger.info("updateUserEmployeeId() start");
+        logger.info("Update user employee id with user id: {} and employee id: {}", userId, employeeId);
         User user = userRepository.getById(userId);
         user.setEmployeeId(employeeId);
 
         userRepository.save(user);
+        logger.info("User employee id updated");
     }
 
     @Transactional
@@ -63,12 +65,12 @@ public class UserService {
         logger.info("Attempting to create a new user with login: {}", request.getLogin());
 
         if (getByLogin(request.getLogin()) != null) {
-            logger.error("A user with login '{}' already exists. Error while creating.", request.getLogin());
+            logger.error("A user with login '{}' already exists. Error while creating", request.getLogin());
             throw new ApiException(HttpStatus.BAD_REQUEST);
         }
         final Role userRole = roleRepository.findByRole(UserRole.USER)
                 .orElseThrow(() -> {
-                    logger.error("Failed to find the 'USER' role. Error while creating a user.");
+                    logger.error("Failed to find the 'USER' role. Error while creating a user");
                     return new ApiException(HttpStatus.BAD_REQUEST);
                 });
         final User user = new User();
@@ -76,6 +78,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setUserRole(userRole);
         userRepository.save(user);
-        logger.info("User with login '{}' successfully created.", request.getLogin());
+        logger.info("User with login '{}' successfully created", request.getLogin());
     }
 }

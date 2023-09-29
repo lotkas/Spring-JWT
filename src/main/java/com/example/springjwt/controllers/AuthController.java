@@ -1,8 +1,8 @@
 package com.example.springjwt.controllers;
 
 import com.example.springjwt.configurations.security.JwtTokenProvider;
-import com.example.springjwt.dto.AuthRequestDTO;
-import com.example.springjwt.dto.AuthResponseDTO;
+import com.example.springjwt.dto.authdto.AuthRequestDTO;
+import com.example.springjwt.dto.authdto.AuthResponseDTO;
 import com.example.springjwt.models.User;
 import com.example.springjwt.services.UserService;
 import org.jetbrains.annotations.NotNull;
@@ -50,7 +50,7 @@ public class AuthController {
 
     @PostMapping(LOGIN)
     public ResponseEntity<AuthResponseDTO> authenticate(@RequestBody AuthRequestDTO request) {
-        logger.info("/login start");
+        logger.info("AuthController. authenticate() start");
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
 
         final User user = userService.getByLogin(request.getLogin());
@@ -61,15 +61,15 @@ public class AuthController {
 
     @PostMapping(LOGOUT)
     public void logout(HttpServletRequest request, HttpServletResponse response) {
-        logger.info("/logout start");
+        logger.info("AuthController. logout() start");
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
-        logger.info("/logout complete");
+        logger.info("AuthController. logout() end");
     }
 
     @PostMapping(REGISTRATION)
     public ResponseEntity<String> registration(@RequestBody AuthRequestDTO request) {
-        logger.info("/registration start");
+        logger.info("AuthController. registration() start");
         userService.createNewUser(request);
 
         return ResponseEntity.ok().build();

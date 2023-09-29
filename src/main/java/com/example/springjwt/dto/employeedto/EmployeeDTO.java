@@ -1,4 +1,4 @@
-package com.example.springjwt.dto;
+package com.example.springjwt.dto.employeedto;
 
 import com.example.springjwt.models.Employee;
 

@@ -1,4 +1,4 @@
-package com.example.springjwt.dto;
+package com.example.springjwt.dto.userdto;
 
 import com.example.springjwt.models.Role;
 import com.example.springjwt.models.User;

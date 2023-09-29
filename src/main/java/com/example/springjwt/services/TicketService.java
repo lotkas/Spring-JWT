@@ -1,5 +1,6 @@
 package com.example.springjwt.services;
 
+import com.example.springjwt.dto.ticketdto.TicketSaveDTO;
 import com.example.springjwt.enums.TicketStatus;
 import com.example.springjwt.models.Employee;
 import com.example.springjwt.models.Ticket;
@@ -24,9 +25,11 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public Ticket saveTicket(Ticket ticket, Employee employee) {
-        logger.info("saveTicket() start");
+    public Ticket saveTicket(TicketSaveDTO ticketDTO, Employee employee) {
+        logger.info("Save ticket with this message: {}", ticketDTO.getMessage());
+        Ticket ticket = new Ticket();
 
+        ticket.setMessage(ticketDTO.getMessage());
         ticket.setEmployee(employee);
         ticket.setStatus(TicketStatus.WAIT);
         ticket.setCreatedAt(LocalDateTime.now());
@@ -35,13 +38,13 @@ public class TicketService {
     }
 
     public List<Ticket> getTicketAll() {
-        logger.info("getTicketAll() start");
+        logger.info("Getting all tickets");
         return ticketRepository.findAll();
     }
 
     public void deleteTicketById(Long id) {
-        logger.info("deleteTicketById() start");
+        logger.info("Delete ticket with id: {}", id);
         ticketRepository.deleteById(id);
-        logger.info("deleteTicketById() end");
+        logger.info("Deleting ticket with id: {} done", id);
     }
 }

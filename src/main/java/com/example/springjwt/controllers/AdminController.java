@@ -1,8 +1,9 @@
 package com.example.springjwt.controllers;
 
 import com.example.springjwt.configurations.ApiException;
-import com.example.springjwt.dto.EmployeeDTO;
-import com.example.springjwt.dto.TicketDTO;
+import com.example.springjwt.dto.employeedto.EmployeeDTO;
+import com.example.springjwt.dto.employeedto.EmployeeUpdateByAdminDTO;
+import com.example.springjwt.dto.ticketdto.TicketDTO;
 import com.example.springjwt.models.Employee;
 import com.example.springjwt.models.Ticket;
 import com.example.springjwt.services.EmployeeService;
@@ -52,7 +53,7 @@ public class AdminController {
 
     @GetMapping(GET_ALL_EMPLOYEES)
     public ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
-        logger.info("/getAll start");
+        logger.info("AdminController. getAll() start");
         List<EmployeeDTO> employees = new ArrayList<>();
         for (Employee employee : employeeService.getAll()) {
             EmployeeDTO employeeDTO = new EmployeeDTO(employee);
@@ -63,39 +64,39 @@ public class AdminController {
 
     @GetMapping(GET_EMPLOYEE_BY_ID)
     public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Long id) {
-        logger.info("/get/{} start", id);
+        logger.info("AdminController. getEmployeeById({}) start", id);
         EmployeeDTO employeeDTO = new EmployeeDTO(employeeService.getById((id)));
         return ResponseEntity.ok(employeeDTO);
     }
 
     @PutMapping(UPDATE_EMPLOYEE)
     @Transactional
-    public void updateEmployee(@PathVariable Long id, @RequestBody Employee updateEmployee) {
-        logger.info("/set/{} start", id);
+    public void updateEmployee(@PathVariable Long id, @RequestBody EmployeeUpdateByAdminDTO updateEmployee) {
+        logger.info("AdminController. updateEmployee({}, {}) start", id, updateEmployee);
         try {
-            employeeService.updateEmployee(id, updateEmployee);
+            employeeService.updateEmployeeByAdmin(id, updateEmployee);
             ResponseEntity.status(HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("AdminController. updateEmployee({}, {}) error {}", id, updateEmployee, e.getMessage());
             throw new ApiException(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping(SET_USER_EMPLOYEE_ID)
     public void setUserEmployeeId(@PathVariable Long id, Long employeeId) {
-        logger.info("/set/user/employeeId/{} start", id);
+        logger.info("AdminController. setUserEmployeeId(userId: {}, employeeId: {}) start", id, employeeId);
         try {
             userService.updateUserEmployeeId(id, employeeId);
             ResponseEntity.status(HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("AdminController. setUserEmployeeId(userId: {}, employeeId: {}) error {}", id, employeeId, e.getMessage());
             throw new ApiException(HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping(GET_ALL_TICKETS)
     public ResponseEntity<List<TicketDTO>> getTicketAll() {
-        logger.info("/ticket/get start");
+        logger.info("AdminController. getTicketAll() start");
         List<TicketDTO> tickets = new ArrayList<>();
         for (Ticket ticket : ticketService.getTicketAll()) {
             TicketDTO ticketDTO = new TicketDTO(ticket);
@@ -106,12 +107,12 @@ public class AdminController {
 
     @DeleteMapping(DELETE_TICKET_BY_ID)
     public void deleteTicketById(@PathVariable Long id) {
-        logger.info("/ticket/delete/{} start", id);
+        logger.info("AdminController. deleteTicketById({}) start", id);
         try {
             ticketService.deleteTicketById(id);
             ResponseEntity.status(HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("AdminController. deleteTicketById({}) error {}", id, e.getMessage());
             throw new ApiException(HttpStatus.BAD_REQUEST);
         }
     }

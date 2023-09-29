@@ -1,8 +1,10 @@
 package com.example.springjwt.controllers;
 
 import com.example.springjwt.configurations.ApiException;
-import com.example.springjwt.dto.EmployeeDTO;
-import com.example.springjwt.dto.TicketDTO;
+import com.example.springjwt.dto.employeedto.EmployeeDTO;
+import com.example.springjwt.dto.employeedto.EmployeeUpdateByUserDTO;
+import com.example.springjwt.dto.ticketdto.TicketDTO;
+import com.example.springjwt.dto.ticketdto.TicketSaveDTO;
 import com.example.springjwt.models.Employee;
 import com.example.springjwt.models.Ticket;
 import com.example.springjwt.services.EmployeeService;
@@ -44,7 +46,7 @@ public class EmployeeController {
 
     @GetMapping(GET_EMPLOYEE)
     public ResponseEntity<EmployeeDTO> getEmployee(Authentication authentication) {
-        logger.info("/get start");
+        logger.info("EmployeeController. getEmployee() start");
         try {
             String username = authentication.getName();
             Long employeeId = userService.findEmployeeIdByUsername(username);
@@ -53,14 +55,14 @@ public class EmployeeController {
 
             return ResponseEntity.ok(employeeDTO);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("EmployeeController. getEmployee() error {}", e.getMessage());
             throw new ApiException(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping(UPDATE_EMPLOYEE)
-    public ResponseEntity<EmployeeDTO> updateEmployeeByLoggedInUser(@RequestBody Employee updateEmployee, Authentication authentication) {
-        logger.info("/set start");
+    public ResponseEntity<EmployeeDTO> updateEmployeeByLoggedInUser(@RequestBody EmployeeUpdateByUserDTO updateEmployee, Authentication authentication) {
+        logger.info("EmployeeController. updateEmployeeByLoggedInUser() start");
         try {
             String username = authentication.getName();
             Long employeeId = userService.findEmployeeIdByUsername(username);
@@ -70,15 +72,15 @@ public class EmployeeController {
 
             return ResponseEntity.ok(employeeDTO);
         } catch (Exception e) {
-            logger.error("/set error");
+            logger.error("EmployeeController. updateEmployeeByLoggedInUser() error {}", e.getMessage());
             throw new ApiException(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping(POST_NEW_TICKET)
     @Transactional
-    public ResponseEntity<TicketDTO> saveTicket(@RequestBody Ticket ticketRequest, Authentication authentication) {
-        logger.info("/send start");
+    public ResponseEntity<TicketDTO> saveTicket(@RequestBody TicketSaveDTO ticketRequest, Authentication authentication) {
+        logger.info("EmployeeController. saveTicket() start");
         try {
             String username = authentication.getName();
             Long employeeId = userService.findEmployeeIdByUsername(username);
@@ -87,10 +89,9 @@ public class EmployeeController {
 
             TicketDTO ticketDTO = new TicketDTO(ticket);
 
-            logger.info("/send end");
             return ResponseEntity.ok(ticketDTO);
         } catch (Exception e) {
-            logger.error("/send error");
+            logger.error("EmployeeController. saveTicket() error {}", e.getMessage());
             throw new ApiException(HttpStatus.BAD_REQUEST);
         }
     }
