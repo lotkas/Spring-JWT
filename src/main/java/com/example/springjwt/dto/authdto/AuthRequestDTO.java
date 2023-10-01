@@ -1,12 +1,15 @@
 package com.example.springjwt.dto.authdto;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AuthRequestDTO {
 
     private String login;
 
     private String password;
 
-    public AuthRequestDTO(String login, String password) {
+    public AuthRequestDTO(@NotNull String login,
+                          @NotNull String password) {
         this.login = login;
         this.password = password;
     }

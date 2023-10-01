@@ -3,32 +3,25 @@ package com.example.springjwt.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
+    @Column
     private String username;
 
-    @Column(name = "password")
+    @Column
     private String password;
 
-    @Column(name = "employee_id")
+    @Column
     private Long employeeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     private Role userRole;
-
-    public User(String username, String password, Long employeeId, Role userRole) {
-        this.username = username;
-        this.password = password;
-        this.employeeId = employeeId;
-        this.userRole = userRole;
-    }
 
     public User() {
     }

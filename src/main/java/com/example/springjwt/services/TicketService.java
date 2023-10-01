@@ -1,5 +1,6 @@
 package com.example.springjwt.services;
 
+import com.example.springjwt.dto.ticketdto.TicketDTO;
 import com.example.springjwt.dto.ticketdto.TicketSaveDTO;
 import com.example.springjwt.enums.TicketStatus;
 import com.example.springjwt.models.Employee;
@@ -37,9 +38,12 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
-    public List<Ticket> getTicketAll() {
+    public List<TicketDTO> getTicketAll() {
         logger.info("Getting all tickets");
-        return ticketRepository.findAll();
+        return ticketRepository.findAll()
+                .stream()
+                .map(TicketDTO::new)
+                .toList();
     }
 
     public void deleteTicketById(Long id) {

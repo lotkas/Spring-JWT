@@ -1,6 +1,6 @@
 package com.example.springjwt.dto.employeedto;
 
-import com.example.springjwt.models.Employee;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 
@@ -16,21 +16,24 @@ public class EmployeeDTO {
 
     private Long positionId;
 
-    private int age;
+    private Integer age;
 
     private BigDecimal salary;
 
     private boolean inJob;
 
-    public EmployeeDTO(Employee employee) {
-        this.id = employee.getId();
-        this.firstName = employee.getFirstName();
-        this.lastName = employee.getLastName();
-        this.email = employee.getEmail();
-        this.positionId = employee.getPositionId().getId();
-        this.age = employee.getAge();
-        this.salary = employee.getSalary();
-        this.inJob = employee.isInJob();
+    public EmployeeDTO(@NotNull Long id, @NotNull String firstName,
+                       @NotNull String lastName, @NotNull String email,
+                       @NotNull Long positionId, @NotNull Integer age,
+                       @NotNull BigDecimal salary, boolean inJob) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.positionId = positionId;
+        this.age = age;
+        this.salary = salary;
+        this.inJob = inJob;
     }
 
     public Long getId() {
@@ -73,7 +76,7 @@ public class EmployeeDTO {
         this.positionId = positionId;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 

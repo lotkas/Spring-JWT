@@ -3,19 +3,15 @@ package com.example.springjwt.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "positions")
+@Table
 public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "position_name")
+    @Column
     private String positionName;
-
-    public Position(String positionName) {
-        this.positionName = positionName;
-    }
 
     public Position() {
     }

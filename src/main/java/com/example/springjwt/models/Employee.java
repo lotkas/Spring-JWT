@@ -4,20 +4,20 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "employees")
+@Table
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
+    @Column
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column
     private String lastName;
 
-    @Column(name = "email")
+    @Column
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,15 +32,6 @@ public class Employee {
 
     @Column(name = "in_job")
     private boolean inJob;
-
-    public Employee(String firstName, String lastName, String email, int age, BigDecimal salary, boolean inJob) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.age = age;
-        this.salary = salary;
-        this.inJob = inJob;
-    }
 
     public Employee() {
     }

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tickets")
+@Table
 public class Ticket {
 
     @Id
@@ -26,14 +26,6 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     @Column
     private TicketStatus status;
-
-    public Ticket(Long id, Employee employee, String message, LocalDateTime createdAt, TicketStatus status) {
-        this.id = id;
-        this.employee = employee;
-        this.message = message;
-        this.createdAt = createdAt;
-        this.status = status;
-    }
 
     public Ticket() {
     }

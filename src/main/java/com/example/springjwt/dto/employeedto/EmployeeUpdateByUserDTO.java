@@ -1,5 +1,7 @@
 package com.example.springjwt.dto.employeedto;
 
+import org.jetbrains.annotations.NotNull;
+
 public class EmployeeUpdateByUserDTO {
 
     private String firstName;
@@ -8,9 +10,10 @@ public class EmployeeUpdateByUserDTO {
 
     private String email;
 
-    private int age;
+    private Integer age;
 
-    public EmployeeUpdateByUserDTO(String firstName, String lastName, String email, int age) {
+    public EmployeeUpdateByUserDTO(@NotNull String firstName, @NotNull String lastName,
+                                   @NotNull String email, @NotNull Integer age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

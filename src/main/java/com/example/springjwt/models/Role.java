@@ -5,20 +5,16 @@ import com.example.springjwt.enums.UserRole;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "role")
+    @Column
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
-    public Role(UserRole role) {
-        this.role = role;
-    }
 
     public Role() {
     }

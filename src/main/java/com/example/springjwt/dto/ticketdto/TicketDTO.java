@@ -2,6 +2,7 @@ package com.example.springjwt.dto.ticketdto;
 
 import com.example.springjwt.enums.TicketStatus;
 import com.example.springjwt.models.Ticket;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +18,7 @@ public class TicketDTO {
 
     private TicketStatus status;
 
-    public TicketDTO (Ticket ticket) {
+    public TicketDTO (@NotNull Ticket ticket) {
         this.id = ticket.getId();
         this.message = ticket.getMessage();
         this.employee = ticket.getEmployee().getId();
